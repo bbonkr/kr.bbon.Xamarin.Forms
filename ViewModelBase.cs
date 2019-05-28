@@ -1,0 +1,417 @@
+﻿using kr.bbon.Xamarin.Forms.Abstractions;
+using kr.bbon.Xamarin.Forms.Services;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace kr.bbon.Xamarin.Forms
+{
+    /// <summary>
+    /// 뷰모델 추상형식을 제공합니다.
+    /// </summary>
+    public abstract class ViewModelBase : NotifyPropertyChangedObject
+    {
+        private const string LOG_TAG = nameof(ViewModelBase);
+
+        /// <summary>
+        /// ViewModelBase 클래스의 인스턴스를 생성합니다.
+        /// </summary>
+        /// <param name="navigation">네비게이션</param>
+        /// <param name="appCenterDiagnosticsService">앱센터 진단 서비스</param>
+        public ViewModelBase(
+            INavigation navigation,
+            IAppCenterDiagnosticsService appCenterDiagnosticsService)
+        {
+            this.navigation = navigation;
+            this.appCenterDiagnosticsService = appCenterDiagnosticsService;
+        }
+
+        #region Member Property
+
+        private string title = String.Empty;
+        private string subtitle = String.Empty;
+        private string icon = String.Empty;
+        private bool isBusy = false;
+        private bool isNotBusy = true;
+        private bool canLoadMore = false;
+        private string header = String.Empty;
+        private string footer = String.Empty;
+
+        /// <summary>
+        /// 제목을 나타냅니다.
+        /// </summary>
+        public string Title
+        {
+            get => title;
+            set => SetProperty(ref title, value);
+        }
+
+        /// <summary>
+        /// 부제목을 나타냅니다.
+        /// </summary>
+        public string Subtitle
+        {
+            get => subtitle;
+            set => SetProperty(ref subtitle, value);
+        }
+
+        /// <summary>
+        /// 아이콘을 나타냅니다.
+        /// </summary>
+        public string Icon
+        {
+            get => icon;
+            set => SetProperty(ref icon, value);
+        }
+
+        /// <summary>
+        /// 동작중을 나타냅니다.
+        /// </summary>
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (SetProperty(ref isBusy, value))
+                {
+                    IsNotBusy = !isBusy;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 동작중이 아님을 나타냅니다.
+        /// </summary>
+        public bool IsNotBusy
+        {
+            get => isNotBusy;
+            set
+            {
+                if (SetProperty(ref isNotBusy, value))
+                {
+                    IsBusy = !isNotBusy;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 내용을 더 읽을 수 있는지 여부를 나타냅니다.
+        /// </summary>
+        public bool CanLoadMore
+        {
+            get => canLoadMore;
+            set => SetProperty(ref canLoadMore, value);
+        }
+
+        /// <summary>
+        /// 머릿글을 나타냅니다.
+        /// </summary>
+        public string Header
+        {
+            get => header;
+            set => SetProperty(ref header, value);
+        }
+
+        /// <summary>
+        /// 바닥글을 나타냅니다.
+        /// </summary>
+        public string Footer
+        {
+            get => footer;
+            set => SetProperty(ref footer, value);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 앱센터 진단 서비스를 가져옵니다.
+        /// </summary>
+        protected IAppCenterDiagnosticsService DiagnosticsService
+        {
+            get => appCenterDiagnosticsService;
+        }
+
+        /// <summary>
+        /// 네이비게이션을 가져옵니다.
+        /// </summary>
+        protected INavigation Navigation
+        {
+            get => navigation;
+        }
+
+        /// <summary>
+        /// 디버깅에 사용되는 식별자를 가져옵니다.
+        /// </summary>
+        protected string DebugIdentifier
+        {
+            get
+            {
+                var debugIdentifier = String.Empty;
+#if DEBUG
+                if (Debugger.IsAttached)
+                {
+                    // 디버깅에만 사용합니다.
+                    debugIdentifier = $"[{ Guid.NewGuid().ToString()}]";
+                }
+#endif
+                return debugIdentifier;
+            }
+        }
+
+        /// <summary>
+        /// 메인 페이지를 가져옵니다.
+        /// </summary>
+        public Page MainPage
+        {
+            get { return Application.Current.MainPage; }
+        }
+
+        /// <summary>
+        /// 필수 권한을 확인하고, 사용자에게 권한 부여 요청합니다.
+        /// </summary>
+        /// <param name="permission">권한</param>
+        /// <returns>권한 획득 여부</returns>
+        public virtual async Task<bool> GrantPermission(Permission permission)
+        {
+            try
+            {
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+
+                if (status != PermissionStatus.Granted)
+                {
+                    await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(permission);
+
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(permission);
+
+                    if (results.ContainsKey(permission))
+                    {
+                        status = results[permission];
+                    }
+                }
+
+                if (status == PermissionStatus.Granted)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                appCenterDiagnosticsService.Error(LOG_TAG, ex.Message, ex, this);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 필수 권한을 확인하고, 사용자에게 권한 부여 요청합니다.
+        /// </summary>
+        /// <param name="permissions">권한 컬렉션</param>
+        /// <returns></returns>
+        public virtual async Task<bool> GrantPermissions(params Permission[] permissions)
+        {
+            bool result = true;
+
+            foreach (var permission in permissions)
+            {
+                result = result && await GrantPermission(permission);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// View 에서 ViewModel로 초기 데이터를 전달합니다.
+        /// </summary>
+        /// <param name="obj">초기화에 사용될 데이터</param>
+        public virtual void InitializeWithData(object obj) { }
+
+        /// <summary>
+        /// page.Appearing 이벤트를 추가합니다.
+        /// </summary>
+        /// <param name="page"></param>
+        public virtual void AttachAppearingEvent(Page page)
+        {
+            page.Appearing -= PageOnAppearing;
+            page.Appearing += PageOnAppearing;
+        }
+
+        /// <summary>
+        /// page.Disappearing 이벤트를 추가합니다.
+        /// </summary>
+        /// <param name="page"></param>
+        public virtual void AttachDisappearingEvent(Page page)
+        {
+            page.Disappearing -= PageOnDisappearing;
+            page.Disappearing += PageOnDisappearing;
+        }
+
+        /// <summary>
+        /// 페이지 로드 이벤트를 추가합니다.
+        /// <para>페이지 로드 이벤트: page.Disappearing 이벤트를 최초 한번 실행</para>
+        /// </summary>
+        /// <param name="page"></param>
+        public virtual void AttachOnLoadEvent(Page page)
+        {
+            page.Appearing -= PageOnLoad;
+            page.Appearing += PageOnLoad;
+        }
+
+        /// <summary>
+        /// page.Appearing 이벤트에서 처리할 작업을 지정합니다.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void PageOnAppearing(object sender, EventArgs e) { }
+
+        /// <summary>
+        /// page.Disappearing 이벤트에서 처리할 작업을 지정합니다.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void PageOnDisappearing(object sender, EventArgs e) { }
+
+        /// <summary>
+        /// 페이지 로드 이벤트에서 처리할 작업을 지정합니다.
+        /// <para>페이지 로드 이벤트: page.Disappearing 이벤트를 최초 한번 실행</para>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void OnLoad(object sender, EventArgs e) { }
+
+        private void PageOnLoad(object sender, EventArgs e)
+        {
+            if (!IsPageLoaded)
+            {
+                OnLoad(sender, e);
+
+                IsPageLoaded = true;
+            }
+        }
+
+
+        /// <summary>
+        /// 확인창을 출력합니다.
+        /// </summary>
+        /// <param name="title">제목</param>
+        /// <param name="message">메시지</param>
+        /// <param name="accept">긍정 버튼 표시 문자열</param>
+        /// <param name="cancel">부정 버튼 표시 문자열</param>
+        /// <param name="callback">사용자 버튼 선택 후 실행</param>
+        /// <returns></returns>
+        protected virtual Task<bool> Confirm(string title, string message, string accept, string cancel, Action<bool> callback = null)
+        {
+            var result = false;
+            var _title = title;
+            var _accept = accept;
+            var _cancel = cancel;
+            if (String.IsNullOrWhiteSpace(_title))
+            {
+                _title = "확인";
+            }
+
+            if (String.IsNullOrWhiteSpace(_accept))
+            {
+                _accept = "예";
+            }
+
+            if (String.IsNullOrWhiteSpace(_cancel))
+            {
+                _cancel = "아니오";
+            }
+
+            XamarinSupport.RunOnMainThread(async () =>
+            {
+                result = await MainPage.DisplayAlert(_title, message, _accept, _cancel);
+                callback?.Invoke(result);
+            });
+
+            return Task.FromResult(result);
+        }
+
+        /// <summary>
+        /// 확인창을 출력합니다. 제목: 확인
+        /// </summary>
+        /// <param name="message">메시지</param>
+        /// <param name="accept">긍정 버튼 표시 문자열</param>
+        /// <param name="cancel">부정 버튼 표시 문자열</param>
+        /// <returns></returns>
+        protected virtual Task<bool> Confirm(string message, string accept, string cancel)
+        {
+            return Confirm(null, message, accept, cancel);
+        }
+
+        /// <summary>
+        /// 확인창을 출력합니다. 제목: 확인; 긍정: 예; 부정: 아니오
+        /// </summary>
+        /// <param name="message">메시지</param>
+        /// <returns></returns>
+        protected virtual Task<bool> Confirm(string message)
+        {
+            return Confirm(null, message, null, null);
+        }
+
+        /// <summary>
+        /// 알림창을 엽니다.
+        /// </summary>
+        /// <param name="title">제목</param>
+        /// <param name="message">메시지</param>
+        /// <param name="cancel">닫기 버튼 표시 문자열</param>
+        /// <param name="callback">사용자 닫기 버튼 선택 후 실행</param>
+        /// <returns></returns>
+        protected virtual Task Alert(string title, string message, string cancel, Action callback = null)
+        {
+            var _title = title;
+            var _cancel = cancel;
+
+            if (String.IsNullOrWhiteSpace(_title))
+            {
+                _title = "알림";
+            }
+
+            if (String.IsNullOrWhiteSpace(_cancel))
+            {
+                _cancel = "확인";
+            }
+
+            XamarinSupport.RunOnMainThread(async () =>
+            {
+                await MainPage.DisplayAlert(_title, message, _cancel);
+
+                callback?.Invoke();
+            });
+
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 알림창을 엽니다. 제목: 알림
+        /// </summary>
+        /// <param name="message">메시지</param>
+        /// <param name="cancel">닫기 버튼 표시 문자열</param>
+        /// <returns></returns>
+        protected virtual async Task Alert(string message, string cancel)
+        {
+            await Alert(null, message, cancel);
+        }
+
+        /// <summary>
+        /// 알림창을 엽니다. 제목: 알림; 닫기: 확인
+        /// </summary>
+        /// <param name="message">메시지</param>
+        /// <returns></returns>
+        protected virtual async Task Alert(string message)
+        {
+            await Alert(null, message, null);
+        }
+
+        private readonly INavigation navigation;
+        private readonly IAppCenterDiagnosticsService appCenterDiagnosticsService;
+        private bool IsPageLoaded = false;
+    }
+}
+
+
+
