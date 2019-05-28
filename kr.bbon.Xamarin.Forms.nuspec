@@ -39,7 +39,7 @@
             The description can be used in package manager UI. Note that the
             nuget.org gallery uses information you add in the portal. 
         -->
-        <description>This package supports to be starting easy the xamarin.Forms.</description>
+        <description>This package supports to be starting easy the Xamarin.Forms.</description>
 
         <!-- Copyright information -->
         <copyright>Copyright ©2019 bbon.kr</copyright>

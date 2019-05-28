@@ -9,9 +9,9 @@
     <Company>bbon.kr</Company>
     <Copyright>bbon.kr. All rights reserved.</Copyright>
     <Description>Xamarin.Forms 앱 작성에 도움이 될 수 있는 기능을 정리합니다.</Description>
-    <PackageTags>netstandard;xamarin;xamarinforms</PackageTags>
+    <PackageTags>xamarin xamarin.forms kr.bbon bbon bbon.kr</PackageTags>
     <!-- <PackageReleaseNotes></PackageReleaseNotes> -->
-    <RepositoryUrl>https://bbon.visualstudio.com/DefaultCollection/XamarinLibrary/_git/kr-bbon-xamarin-forms</RepositoryUrl>
+    <RepositoryUrl>https://github.com/bbonkr/kr.bbon.Xamarin.Forms.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <!-- <PackageLicenseUrl></PackageLicenseUrl> -->
