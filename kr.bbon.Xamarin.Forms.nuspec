@@ -5,7 +5,7 @@
         <id>kr.bbon.Xamarin.Forms</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.0</version>
+        <version>1.0.1</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Pon Cheol Ku (bbon@live.com)</authors>
@@ -17,7 +17,7 @@
         <owners>Pon Cheol Ku (bbon@live.com)</owners>
         
          <!-- Project URL provides a link for the gallery -->
-        <projectUrl>https://bbon.visualstudio.com/XamarinLibrary</projectUrl>
+        <projectUrl>https://github.com/bbonkr/kr.bbon.Xamarin.Forms</projectUrl>
 
          <!-- License information is displayed on the gallery -->
         <license type="expression">MIT</license>
