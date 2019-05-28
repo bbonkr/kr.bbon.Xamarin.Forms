@@ -7,6 +7,11 @@
 [nuget.org: kr.bbon.Xamarin.Forms](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms)
 
 
+## CI
+
+[![Build status](https://bbon.visualstudio.com/XamarinLibrary/_apis/build/status/Build%20kr.bbon.Xamarin.Forms)](https://bbon.visualstudio.com/XamarinLibrary/_build/latest?definitionId=8)
+
+
 ## 변경
 
 ### 1.0.1
