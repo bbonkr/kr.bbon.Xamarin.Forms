@@ -6,13 +6,13 @@ Write an application and iterate over the results. Separate from the library, us
 
 ## nuget
 
+![Nuget](https://img.shields.io/nuget/dt/kr.bbon.Xamarin.Forms.svg?label=nuget) ![Nuget](https://img.shields.io/nuget/v/kr.bbon.Xamarin.Forms.svg)
+
 [nuget.org: kr.bbon.Xamarin.Forms](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms)
 
-
-## CI
+## CI/CD
 
 [![Build status](https://bbon.visualstudio.com/XamarinLibrary/_apis/build/status/Build%20kr.bbon.Xamarin.Forms)](https://bbon.visualstudio.com/XamarinLibrary/_build/latest?definitionId=8)
-
 
 ## 변경 Changes
 
