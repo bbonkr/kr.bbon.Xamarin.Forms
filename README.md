@@ -2,8 +2,6 @@
 
 응용프로그램을 작성하기 위해 반복적으로 작성하던 코드를 라이브러리로 분리하여, nuget package로 제공합니다.
 
-Write an application and iterate over the results. Separate from the library, use the novell package.
-
 ## nuget
 
 ![Nuget](https://img.shields.io/nuget/dt/kr.bbon.Xamarin.Forms.svg?label=nuget) ![Nuget](https://img.shields.io/nuget/v/kr.bbon.Xamarin.Forms.svg)
