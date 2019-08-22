@@ -4,7 +4,9 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace kr.bbon.Xamarin.Forms
@@ -27,6 +29,9 @@ namespace kr.bbon.Xamarin.Forms
         {
             this.navigation = navigation;
             this.appCenterDiagnosticsService = appCenterDiagnosticsService;
+
+            AddValidations();
+            InitializeCommands();
         }
 
         #region Member Property
@@ -280,6 +285,89 @@ namespace kr.bbon.Xamarin.Forms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected virtual void OnLoad(object sender, EventArgs e) { }
+
+        /// <summary>
+        /// 커맨드를 초기화합니다.
+        /// </summary>
+        protected virtual void InitializeCommands()
+        {
+
+        }
+
+        /// <summary>
+        /// 입력 유효성 검사 규칙을 추가합니다.
+        /// </summary>
+        protected virtual void AddValidations()
+        {
+
+        }
+
+        /// <summary>
+        /// 인수로 제공된 객체의 공개 속성(public property)를 기준으로 뷰모델의 속성 값을 설정합니다.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataSource"></param>
+        protected virtual void SetPropertyValue<T>(T dataSource)
+        {
+            var propertyFlags =
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.Public |
+                System.Reflection.BindingFlags.CreateInstance
+                ;
+
+            var thisProperies = this.GetType().GetProperties(propertyFlags);
+            var objectProperties = typeof(T).GetProperties(propertyFlags);
+            foreach (var property in objectProperties)
+            {
+                var propertyValue = property.GetValue(dataSource);
+                var propertyName = property.Name;
+
+                var thisProperty = thisProperies.Where(x => x.Name == propertyName)
+                    .FirstOrDefault();
+
+                if (thisProperty != null && propertyValue != null)
+                {
+                    thisProperty.SetValue(this, propertyValue);
+                }
+            }
+        }
+
+        protected virtual T MergeObject<T>(T baseOn, T mergedData)
+        {
+            var propertyFlags =
+               System.Reflection.BindingFlags.Instance |
+               System.Reflection.BindingFlags.Public |
+               System.Reflection.BindingFlags.CreateInstance
+               ;
+
+            var thisProperies = typeof(T).GetProperties(propertyFlags);
+
+            foreach (var property in thisProperies)
+            {
+                var propertyValue = property.GetValue(mergedData);
+                var propertyName = property.Name;
+
+                var thisProperty = thisProperies.Where(x => x.Name == propertyName)
+                    .FirstOrDefault();
+
+                if (thisProperty != null && propertyValue != null)
+                {
+                    thisProperty.SetValue(baseOn, propertyValue);
+                }
+            }
+
+            return baseOn;
+        }
+
+        protected void ChangeCanExecute(ICommand command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            ((Command)command).ChangeCanExecute();
+        }
 
         private void PageOnLoad(object sender, EventArgs e)
         {
