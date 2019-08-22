@@ -14,9 +14,16 @@
 
 ## 변경 Changes
 
+### 1.0.3
+
+- Update Xamarin.Forms 4.2
+- Add validation features
+- Add useful behaviors
+- Add value converters
+
 ### 1.0.2
 
-- Update Xamarin 4.1 
+- Update Xamarin.Forms 4.1 
 - Update Microsoft.AppCenter 2.1
 
 ### 1.0.1.2
