@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace kr.bbon.Xamarin.Forms
@@ -14,14 +13,7 @@ namespace kr.bbon.Xamarin.Forms
         /// <param name="action">실행할 메서드</param>
         public static void RunOnMainThread(Action action)
         {
-            if (MainThread.IsMainThread)
-            {
-                action.Invoke();
-            }
-            else
-            {
-                Device.BeginInvokeOnMainThread(action);
-            }
+            Device.BeginInvokeOnMainThread(action);
         }
 
         /// <summary>

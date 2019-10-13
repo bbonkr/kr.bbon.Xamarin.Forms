@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Util;
 using kr.bbon.Xamarin.Forms.Abstractions;
+using kr.bbon.Xamarin.Forms.Factories;
 using kr.bbon.Xamarin.Forms.Services;
 using System;
 using System.Collections.Generic;

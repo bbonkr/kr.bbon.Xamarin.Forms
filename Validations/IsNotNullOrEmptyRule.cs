@@ -15,7 +15,8 @@ namespace kr.bbon.Xamarin.Forms.Validations
                 return false;
             }
 
-            var str = value as string;
+            // TODO ToString() 이 더 좋을 것으로 생각됨
+            var str = value as string ?? value.ToString();
 
             return !String.IsNullOrWhiteSpace(str);
         }

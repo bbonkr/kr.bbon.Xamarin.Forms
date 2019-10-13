@@ -14,6 +14,12 @@
 
 ## 변경 Changes
 
+### 1.0.4 
+
+- Removed dependency of Xamarin.Essentials 
+- Add some controls (See .Controls namespace)
+- Add some validation rule (See .Validations namespace)
+
 ### 1.0.3
 
 - Update Xamarin.Forms 4.2
