@@ -14,6 +14,14 @@
 
 ## 변경 Changes
 
+### 1.0.5
+
+- Plugin.Permissions 의존을 제거 <small> Remove dependency of Plugin.Permissions</small>
+- Xamarin.Forms 4.3 으로 업데이트 <small> Update Xamarin.Forms 4.3</small>
+- Microsoft.AppCenter 2.6.2 로 업데이트 <small> Update Microsoft.AppCenter 2.6.2</small>
+- ContentPageBase 클래스의 이름을 AppContentPage 로 변경할 예정 <small> Scheduled to Rename a class 'ContentPageBase' to 'AppContentPage' </small>
+- ViewModelBase 클래스의 생성자 의존성 주입을 제거 <small> Remove ViewModelBase constructor injection </small>
+
 ### 1.0.4 
 
 - Removed dependency of Xamarin.Essentials 

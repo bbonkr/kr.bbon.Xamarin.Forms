@@ -1,7 +1,5 @@
 ﻿using kr.bbon.Xamarin.Forms.Abstractions;
 using kr.bbon.Xamarin.Forms.Services;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -21,15 +19,8 @@ namespace kr.bbon.Xamarin.Forms
         /// <summary>
         /// ViewModelBase 클래스의 인스턴스를 생성합니다.
         /// </summary>
-        /// <param name="navigation">네비게이션</param>
-        /// <param name="appCenterDiagnosticsService">앱센터 진단 서비스</param>
-        public ViewModelBase(
-            INavigation navigation,
-            IAppCenterDiagnosticsService appCenterDiagnosticsService)
+        public ViewModelBase()
         {
-            this.navigation = navigation;
-            this.appCenterDiagnosticsService = appCenterDiagnosticsService;
-
             AddValidations();
             InitializeCommands();
         }
@@ -132,22 +123,6 @@ namespace kr.bbon.Xamarin.Forms
         #endregion
 
         /// <summary>
-        /// 앱센터 진단 서비스를 가져옵니다.
-        /// </summary>
-        protected IAppCenterDiagnosticsService DiagnosticsService
-        {
-            get => appCenterDiagnosticsService;
-        }
-
-        /// <summary>
-        /// 네이비게이션을 가져옵니다.
-        /// </summary>
-        protected INavigation Navigation
-        {
-            get => navigation;
-        }
-
-        /// <summary>
         /// 디버깅에 사용되는 식별자를 가져옵니다.
         /// </summary>
         protected string DebugIdentifier
@@ -172,59 +147,6 @@ namespace kr.bbon.Xamarin.Forms
         public Page MainPage
         {
             get { return Application.Current.MainPage; }
-        }
-
-        /// <summary>
-        /// 필수 권한을 확인하고, 사용자에게 권한 부여 요청합니다.
-        /// </summary>
-        /// <param name="permission">권한</param>
-        /// <returns>권한 획득 여부</returns>
-        public virtual async Task<bool> GrantPermission(Permission permission)
-        {
-            try
-            {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
-
-                if (status != PermissionStatus.Granted)
-                {
-                    await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(permission);
-
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(permission);
-
-                    if (results.ContainsKey(permission))
-                    {
-                        status = results[permission];
-                    }
-                }
-
-                if (status == PermissionStatus.Granted)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                appCenterDiagnosticsService.Error(LOG_TAG, ex.Message, ex, this);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 필수 권한을 확인하고, 사용자에게 권한 부여 요청합니다.
-        /// </summary>
-        /// <param name="permissions">권한 컬렉션</param>
-        /// <returns></returns>
-        public virtual async Task<bool> GrantPermissions(params Permission[] permissions)
-        {
-            bool result = true;
-
-            foreach (var permission in permissions)
-            {
-                result = result && await GrantPermission(permission);
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -289,18 +211,12 @@ namespace kr.bbon.Xamarin.Forms
         /// <summary>
         /// 커맨드를 초기화합니다.
         /// </summary>
-        protected virtual void InitializeCommands()
-        {
-
-        }
+        protected virtual void InitializeCommands() { }
 
         /// <summary>
         /// 입력 유효성 검사 규칙을 추가합니다.
         /// </summary>
-        protected virtual void AddValidations()
-        {
-
-        }
+        protected virtual void AddValidations() { }
 
         /// <summary>
         /// 인수로 제공된 객체의 공개 속성(public property)를 기준으로 뷰모델의 속성 값을 설정합니다.
@@ -495,8 +411,7 @@ namespace kr.bbon.Xamarin.Forms
             await Alert(null, message, null);
         }
 
-        private readonly INavigation navigation;
-        private readonly IAppCenterDiagnosticsService appCenterDiagnosticsService;
+     
         private bool IsPageLoaded = false;
     }
 }

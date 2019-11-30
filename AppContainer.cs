@@ -6,14 +6,12 @@ using System.Text;
 
 namespace kr.bbon.Xamarin.Forms
 {
+    /// <summary>
+    /// IoC 컨테이너 접근을 제공합니다.
+    /// </summary>
     public class AppContainer
     {
-        private AppContainer()
-        {
-
-        }
-
-        
+        private AppContainer() { }
 
         public static AppContainer Instance
         {
@@ -34,11 +32,6 @@ namespace kr.bbon.Xamarin.Forms
         }
 
         public IContainer Container { get => container; }
-
-        //public static void Build(ContainerBuilder builder)
-        //{
-        //    container = builder.Build();
-        //}
 
         public void Build(ContainerBuilder builder)
         {

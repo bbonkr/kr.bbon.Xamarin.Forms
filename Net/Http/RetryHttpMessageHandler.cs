@@ -33,7 +33,7 @@ namespace kr.bbon.Xamarin.Forms.Net.Http
                 }
                 catch (Exception ex)
                 {
-                    appCenterDiagnosticsService.Error(LOG_TAG, ex.Message, ex, this);
+                    appCenterDiagnosticsService?.Error(LOG_TAG, ex.Message, ex, this);
 
                     throw;
                 }
@@ -49,11 +49,11 @@ namespace kr.bbon.Xamarin.Forms.Net.Http
                         //    var contentType = responseMessage.Content.Headers?.ContentType?.MediaType ?? "unknown";
                         //    if (contentType.StartsWith("text/", StringComparison.OrdinalIgnoreCase))
                         //    {
-                        //        appCenterDiagnosticsService.Debug(LOG_TAG, await responseMessage.Content.ReadAsStringAsync());
+                        //        appCenterDiagnosticsService?.Debug(LOG_TAG, await responseMessage.Content.ReadAsStringAsync());
                         //    }
                         //    else if (contentType.EndsWith("/json", StringComparison.OrdinalIgnoreCase))
                         //    {
-                        //        appCenterDiagnosticsService.Debug(LOG_TAG, await responseMessage.Content.ReadAsStringAsync());
+                        //        appCenterDiagnosticsService?.Debug(LOG_TAG, await responseMessage.Content.ReadAsStringAsync());
                         //    }
                         //    else
                         //    {
@@ -68,7 +68,7 @@ namespace kr.bbon.Xamarin.Forms.Net.Http
                         //            fileSize = -1;
                         //        }
 
-                        //        appCenterDiagnosticsService.Debug(LOG_TAG, $"content-type: {contentType } / filename: {fileName} / length: {fileSize.Value}");
+                        //        appCenterDiagnosticsService?.Debug(LOG_TAG, $"content-type: {contentType } / filename: {fileName} / length: {fileSize.Value}");
                         //    }
                         //}
                     }

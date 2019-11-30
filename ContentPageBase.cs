@@ -18,6 +18,14 @@ namespace kr.bbon.Xamarin.Forms
         }
     }
 
+    public class AppContentPage<TViewModel> : ContentPageBase<TViewModel> where TViewModel : ViewModelBase
+    {
+        public AppContentPage() : base() { }
+
+        public AppContentPage(object data) : base(data) { }
+    }
+
+    [Obsolete("ContentPageBase<TViewModel> 클래스는 제거될 예정입니다. AppContentPage<TViewModel> 클래스를 사용하십시오.")]
     public class ContentPageBase<TViewModel> : ContentPageBase where TViewModel : ViewModelBase
     {
         public ContentPageBase() : this(null)
@@ -37,7 +45,6 @@ namespace kr.bbon.Xamarin.Forms
             using (var scope = AppContainer.Instance.Container.BeginLifetimeScope(configurationAction))
             {
                 var vm = scope.Resolve<TViewModel>();
-                var appCenterdiagnosticsService = scope.Resolve<IAppCenterDiagnosticsService>();
 
                 vm.InitializeWithData(data);
                 vm.AttachAppearingEvent(this);
@@ -45,7 +52,6 @@ namespace kr.bbon.Xamarin.Forms
                 vm.AttachOnLoadEvent(this);
 
                 viewModel = vm;
-                diagnosticsService = appCenterdiagnosticsService;
             }
 
             this.Appearing += ContentPageBase_Appearing;
@@ -63,19 +69,17 @@ namespace kr.bbon.Xamarin.Forms
 
         public TViewModel ViewModel { get => viewModel; }
 
-        public IAppCenterDiagnosticsService DiagnosticsService { get => diagnosticsService; }
 
         /// <summary>
         /// ViewModel 의 인스턴스를 BindingContext 속성에 바인딩합니다.
         /// <para>InitializeComponent(); 메서드 실행 후 호출해야 합니다.</para>
         /// </summary>
-        protected void SetViewModelAsBindingContext()
+        private void SetViewModelAsBindingContext()
         {
             BindingContext = ViewModel;
         }
 
         private readonly TViewModel viewModel;
-        public readonly IAppCenterDiagnosticsService diagnosticsService;
         private bool isLoaded = false;
     }
 }
