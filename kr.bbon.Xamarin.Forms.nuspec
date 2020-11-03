@@ -5,7 +5,7 @@
         <id>kr.bbon.Xamarin.Forms</id>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>1.0.5</version>
+        <version>1.0.6</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
         <authors>Pon Cheol Ku (bbon@live.com)</authors>
@@ -49,12 +49,12 @@
 
         <!-- Dependencies are automatically installed when the package is installed -->
         <dependencies>
-            <dependency id="Xamarin.Forms" version="4.3.0" />
-            <dependency id="Microsoft.AppCenter" version="2.6.2" />
-            <dependency id="Microsoft.AppCenter.Analytics" Version="2.6.2" />
-            <dependency id="Microsoft.AppCenter.Crashes" version="2.6.2" />
+            <dependency id="Xamarin.Forms" version="4.8" />
+            <dependency id="Microsoft.AppCenter" version="3.4" />
+            <dependency id="Microsoft.AppCenter.Analytics" Version="3.4" />
+            <dependency id="Microsoft.AppCenter.Crashes" version="3.4" />
             <dependency id="Newtonsoft.Json" version="12.0" />
-            <dependency id="Autofac" version="4.9.4" />
+            <dependency id="Autofac" version="6.0" />
         </dependencies>
     </metadata>
 

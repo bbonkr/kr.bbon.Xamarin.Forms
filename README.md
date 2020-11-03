@@ -14,6 +14,10 @@
 
 ## 변경 Changes
 
+### 1.0.6
+
+- Xamarin.Forms 4.8 업데이트 <small>Update Xamarin.Forms 4.8
+
 ### 1.0.5
 
 - Plugin.Permissions 의존을 제거 <small> Remove dependency of Plugin.Permissions</small>
