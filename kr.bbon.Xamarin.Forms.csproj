@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <!-- <PackageLicenseUrl></PackageLicenseUrl> -->
-    <PackageIcon>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIcon>
+    <PackageIconUrl>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIconUrl>
   
   </PropertyGroup>
 
