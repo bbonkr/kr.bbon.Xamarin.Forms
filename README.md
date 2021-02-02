@@ -1,15 +1,10 @@
 # Xamarin.Forms 지원 라이브러리
 
+[![](https://img.shields.io/nuget/v/kr.bbon.Xamarin.Forms)](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms) [![](https://img.shields.io/nuget/dt/kr.bbon.Xamarin.Forms)](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms) [![publish to nuget](https://github.com/bbonkr/kr.bbon.Xamarin.Forms/workflows/publish%20to%20nuget/badge.svg)](https://github.com/bbonkr/kr.bbon.Xamarin.Forms/actions)
+
 응용프로그램을 작성하기 위해 반복적으로 작성하던 코드를 라이브러리로 분리하여, nuget package로 제공합니다.
 
-## nuget
 
-[![](https://img.shields.io/nuget/v/kr.bbon.Xamarin.Forms)](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms) [![](https://img.shields.io/nuget/dt/kr.bbon.Xamarin.Forms)](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms)
-
-
-## CI/CD
-
-[![Build status](https://bbon.visualstudio.com/XamarinLibrary/_apis/build/status/Build%20kr.bbon.Xamarin.Forms)](https://bbon.visualstudio.com/XamarinLibrary/_build/latest?definitionId=8)
 
 ## 변경 Changes
 
