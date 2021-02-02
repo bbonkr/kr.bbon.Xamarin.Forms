@@ -4,15 +4,18 @@
 
 ## nuget
 
-![Nuget](https://img.shields.io/nuget/dt/kr.bbon.Xamarin.Forms.svg?label=nuget) ![Nuget](https://img.shields.io/nuget/v/kr.bbon.Xamarin.Forms.svg)
+[![](https://img.shields.io/nuget/v/kr.bbon.Xamarin.Forms)](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms) [![](https://img.shields.io/nuget/dt/kr.bbon.Xamarin.Forms)](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms)
 
-[nuget.org: kr.bbon.Xamarin.Forms](https://www.nuget.org/packages/kr.bbon.Xamarin.Forms)
 
 ## CI/CD
 
 [![Build status](https://bbon.visualstudio.com/XamarinLibrary/_apis/build/status/Build%20kr.bbon.Xamarin.Forms)](https://bbon.visualstudio.com/XamarinLibrary/_build/latest?definitionId=8)
 
 ## 변경 Changes
+
+### 1.1.0
+
+- Xamarin.Forms 5.0 업데이트 <small>Update Xamarin.Forms 5.0</small>
 
 ### 1.0.6
 
