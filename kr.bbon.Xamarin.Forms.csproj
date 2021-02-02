@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>kr.bbon.Xamarin.Forms</PackageId>
     <Title>kr.bbon.Xamarin.Forms</Title>
-    <Version>1.0.6</Version>
+    <Version>1.1.0</Version>
     <Authors>Pon Cheol Ku (bbon@live.com)</Authors>
     <Company>bbon.kr</Company>
     <Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -15,16 +15,17 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <!-- <PackageLicenseUrl></PackageLicenseUrl> -->
-    <PackageIconUrl>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIconUrl>
+    <PackageIcon>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIcon>
+  
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
-      <PackageReference Include="Microsoft.AppCenter" Version="3.4.3" />
-      <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
-      <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-      <PackageReference Include="Autofac" Version="6.0.0" />
+      <PackageReference Include="Xamarin.Forms" Version="5.0" />
+      <PackageReference Include="Microsoft.AppCenter" Version="4.1" />
+      <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1" />
+      <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0" />
+      <PackageReference Include="Autofac" Version="6.1" />
   </ItemGroup>
 
 </Project>
