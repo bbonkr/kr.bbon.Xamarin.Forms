@@ -33,9 +33,10 @@ jobs:
       #     msg: ${{ env.OUTPUT }}
       #     check_for_duplicate_msg: false
 
-      - name: Add comment on PR
-        run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body "$PR_MESSAGE"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}      
-          PR_MESSAGE: "✅ This pull request is verified to build."
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            ✅ This pull request is verified to build 🎉🎉🎉
+          repo-token: ${{ secrets.GH_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: false # This is the default
