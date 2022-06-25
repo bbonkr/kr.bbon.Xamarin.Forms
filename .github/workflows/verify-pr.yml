@@ -1,0 +1,42 @@
+name: Verify PR
+
+on:
+  pull_request:
+    paths-ignore: 
+      - '**/*.md'
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      # - name: Add comment 
+      #   uses: unsplash/comment-on-pr@v1.3.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #     OUTPUT: "✅ This pull request is verified to build."
+      #   with:
+      #     msg: ${{ env.OUTPUT }}
+      #     check_for_duplicate_msg: false
+
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            ✅ This pull request is verified to build 🎉🎉🎉
+          repo-token: ${{ secrets.GH_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: false # This is the default

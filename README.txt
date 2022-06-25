@@ -7,3 +7,9 @@ Xamarin.Essentials 에서 제공하는 기능을 제거했습니다.
 Xamarin.Essentials 을 사용하려면 아래 링크를 방문하십시오.
 
 [Xamarin.Essentials](https://docs.microsoft.com/ko-kr/xamarin/essentials/)
+
+## MVVM Toolkit
+
+[Introduction to the MVVM Toolkit](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction) 사용을 고려해 보새요.
+
+[Microsoft.Toolkit.Mvvm](https://www.nuget.org/packages/Microsoft.Toolkit.Mvvm/)
