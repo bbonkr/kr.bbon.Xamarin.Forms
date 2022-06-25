@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>kr.bbon.Xamarin.Forms</PackageId>
     <Title>kr.bbon.Xamarin.Forms</Title>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Authors>Pon Cheol Ku (bbon@live.com)</Authors>
     <Company>bbon.kr</Company>
     <Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -15,8 +15,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <!-- <PackageLicenseUrl></PackageLicenseUrl> -->
-    <PackageIconUrl>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIconUrl>
-  
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +26,11 @@
       <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.*" />
       <PackageReference Include="Newtonsoft.Json" Version="13.*" />
       <PackageReference Include="Autofac" Version="6.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="./assets/icon.png" Pack="true" PackagePath="/" />
+    <None Include="./README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>
