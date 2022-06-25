@@ -4,9 +4,23 @@
 
 응용프로그램을 작성하기 위해 반복적으로 작성하던 코드를 라이브러리로 분리하여, nuget package로 제공합니다.
 
+## MVVM Toolkit
+
+[Introduction to the MVVM Toolkit](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction) 사용을 고려해 보새요.
+
+[Microsoft.Toolkit.Mvvm](https://www.nuget.org/packages/Microsoft.Toolkit.Mvvm/)
+
 
 
 ## 변경 Changes
+
+### 1.1.2
+
+- 패키지 이미지 추가
+
+### 1.1.1
+
+- 의존 패키지 업데이트
 
 ### 1.1.0
 
