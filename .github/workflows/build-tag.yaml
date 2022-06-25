@@ -1,8 +1,8 @@
-name: 'Publish to nuget'
-
+name: build and git tag if not exists
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main # Default release branch
 
 env:
   TARGET_PROJECT_PATH: ./
@@ -10,9 +10,8 @@ env:
 
 jobs:
   publish:
-    name: 'Publish to nuget'
+    name: build, pack & publish
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
@@ -32,30 +31,37 @@ jobs:
 #         run: dotnet test --no-build --verbosity normal
 
       - name: Get version 
-        uses: bbonkr/get-version-action@v1.0.3
+        uses: bbonkr/get-version-action@v1.0.1
         id: get_version
         with:
-          project: "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}" 
+          project: "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}"
 
       - name: Check git tag 
-        uses: bbonkr/git-tag-check-action@v1.0.5
+        uses: bbonkr/git-tag-check-action@v1.0.9
         id: git_tag_check
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           tag: 'v${{ steps.get_version.outputs.version }}'
+        
+      - name: Create git tag
+        uses: pkgdeps/git-tag-action@v2
+        if: ${{ steps.git_tag_check.outputs.tag == '' }}
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          github_repo: ${{ github.repository }}
+          version: ${{ steps.get_version.outputs.version }}
+          git_commit_sha: ${{ github.sha }}
+          git_tag_prefix: "v"
 
-      - name: Pack 
+      - name: logging
+        if: ${{ steps.git_tag_check.outputs.tag != '' }}
         run: |
-          dotnet pack "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}" -c Release
-
-      - name: Publish 
-        run: |
-          dotnet nuget push "${{ env.TARGET_PROJECT_PATH }}bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          echo "Tag ${{ steps.git_tag_check.outputs.tag }} is exists."
 
       - name: Notify to slack
         uses: 8398a7/action-slack@v3
         with:
-          job_name: publish
+          job_name: "build, pack & publish"
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
         env:
@@ -69,5 +75,4 @@ jobs:
           webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
-          steps: ${{ toJson(steps) }}          
-      
+          steps: ${{ toJson(steps) }}    
