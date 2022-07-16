@@ -14,6 +14,11 @@
 
 ## 변경 Changes
 
+### 1.2.0
+
+- JsonService 제거
+- Newtonsoft.Json 의존 제거
+
 ### 1.1.2
 
 - 패키지 이미지 추가

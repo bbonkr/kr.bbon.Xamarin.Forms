@@ -34,7 +34,9 @@ namespace kr.bbon.Xamarin.Forms
         {
             builder.RegisterType<HttpClientFactory>().As<IHttpClientFactory>();
             builder.RegisterType<AppCenterDiagnosticsService>().As<IAppCenterDiagnosticsService>();
-            builder.RegisterType<JsonService>().As<IJsonService>();
+
+            // Remove JsonService #16
+            //builder.RegisterType<JsonService>().As<IJsonService>();
         }
 
         private readonly ContainerBuilder containerBuilder;
