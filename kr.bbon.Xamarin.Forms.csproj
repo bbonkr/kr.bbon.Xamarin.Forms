@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>kr.bbon.Xamarin.Forms</PackageId>
     <Title>kr.bbon.Xamarin.Forms</Title>
-    <Version>1.1.2</Version>
+    <Version>1.2.0</Version>
     <Authors>Pon Cheol Ku (bbon@live.com)</Authors>
     <Company>bbon.kr</Company>
     <Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -24,7 +24,6 @@
       <PackageReference Include="Microsoft.AppCenter" Version="4.*" />
       <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.*" />
       <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.*" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.*" />
       <PackageReference Include="Autofac" Version="6.*" />
   </ItemGroup>
 

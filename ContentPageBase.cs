@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
-using kr.bbon.Xamarin.Forms.Abstractions;
 using Xamarin.Forms;
 
 namespace kr.bbon.Xamarin.Forms
